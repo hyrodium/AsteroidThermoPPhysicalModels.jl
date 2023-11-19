@@ -5,11 +5,11 @@ DocMeta.setdocmeta!(AsteroidThermoPhysicalModels, :DocTestSetup, :(using Asteroi
 
 makedocs(;
     modules=[AsteroidThermoPhysicalModels],
-    repo="https://github.com/Astroshaper/AsteroidThermoPhysicalModels.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl/blob/{commit}{path}#{line}",
     sitename="AsteroidThermoPhysicalModels.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://Astroshaper.github.io/AsteroidThermoPhysicalModels.jl",
+        canonical="https://hyrodium.github.io/AsteroidThermoPhysicalModels.jl",
         assets=["assets/favicon.ico"],
     ),
     pages=[
@@ -18,5 +18,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/Astroshaper/AsteroidThermoPhysicalModels.jl",
+    repo="github.com/hyrodium/AsteroidThermoPhysicalModels.jl",
 )

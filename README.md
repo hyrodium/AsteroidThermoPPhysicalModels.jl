@@ -1,9 +1,9 @@
 # AsteroidThermoPhysicalModels.jl
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Astroshaper.github.io/AsteroidThermoPhysicalModels.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Astroshaper.github.io/AsteroidThermoPhysicalModels.jl/dev)
-[![Build Status](https://github.com/Astroshaper/AsteroidThermoPhysicalModels.jl/workflows/CI/badge.svg)](https://github.com/Astroshaper/AsteroidThermoPhysicalModels.jl/actions?query=workflow%3ACI+branch%3Amain)
-[![codecov](https://codecov.io/gh/Astroshaper/AsteroidThermoPhysicalModels.jl/branch/main/graph/badge.svg?token=dJBiR91dCD)](https://codecov.io/gh/Astroshaper/AsteroidThermoPhysicalModels.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/AsteroidThermoPhysicalModels.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/AsteroidThermoPhysicalModels.jl/dev)
+[![Build Status](https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl/workflows/CI/badge.svg)](https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl/actions?query=workflow%3ACI+branch%3Amain)
+[![codecov](https://codecov.io/gh/hyrodium/AsteroidThermoPhysicalModels.jl/branch/main/graph/badge.svg?token=dJBiR91dCD)](https://codecov.io/gh/hyrodium/AsteroidThermoPhysicalModels.jl)
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 Julia-based toolkit for dynamical simulations of planets and small solar system bodies.
@@ -12,7 +12,7 @@ Julia-based toolkit for dynamical simulations of planets and small solar system 
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/Astroshaper/AsteroidThermoPhysicalModels.jl")
+Pkg.add(url="https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl")
 using AsteroidThermoPhysicalModels
 ```
 
