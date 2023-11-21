@@ -1,7 +1,7 @@
-# AsteroidThermoPhysicalModels.jl
+# AsteroidThermoPPhysicalModels.jl
 
 A package for dynamical simulation of an asteroid.
 
 ```@autodocs
-Modules = [AsteroidThermoPhysicalModels]
+Modules = [AsteroidThermoPPhysicalModels]
 ```

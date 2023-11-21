@@ -1,9 +1,9 @@
-# AsteroidThermoPhysicalModels.jl
+# AsteroidThermoPPhysicalModels.jl
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/AsteroidThermoPhysicalModels.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/AsteroidThermoPhysicalModels.jl/dev)
-[![Build Status](https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl/workflows/CI/badge.svg)](https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl/actions?query=workflow%3ACI+branch%3Amain)
-[![codecov](https://codecov.io/gh/hyrodium/AsteroidThermoPhysicalModels.jl/branch/main/graph/badge.svg?token=dJBiR91dCD)](https://codecov.io/gh/hyrodium/AsteroidThermoPhysicalModels.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/AsteroidThermoPPhysicalModels.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/AsteroidThermoPPhysicalModels.jl/dev)
+[![Build Status](https://github.com/hyrodium/AsteroidThermoPPhysicalModels.jl/workflows/CI/badge.svg)](https://github.com/hyrodium/AsteroidThermoPPhysicalModels.jl/actions?query=workflow%3ACI+branch%3Amain)
+[![codecov](https://codecov.io/gh/hyrodium/AsteroidThermoPPhysicalModels.jl/branch/main/graph/badge.svg?token=dJBiR91dCD)](https://codecov.io/gh/hyrodium/AsteroidThermoPPhysicalModels.jl)
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 Julia-based toolkit for dynamical simulations of planets and small solar system bodies.
@@ -13,15 +13,15 @@ Julia-based toolkit for dynamical simulations of planets and small solar system 
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl")
-using AsteroidThermoPhysicalModels
+Pkg.add(url="https://github.com/hyrodium/AsteroidThermoPPhysicalModels.jl")
+using AsteroidThermoPPhysicalModels
 ```
 
 You can update the module and run tests as follows.
 
 ```julia
-Pkg.update("AsteroidThermoPhysicalModels")
-Pkg.test("AsteroidThermoPhysicalModels")
+Pkg.update("AsteroidThermoPPhysicalModels")
+Pkg.test("AsteroidThermoPPhysicalModels")
 ```
 
 ## Thermophysical modeling

@@ -64,10 +64,10 @@
     # path_obj = joinpath("shape", "SHAPE_SFM_49k_v20180804.obj")
     # path_jld = joinpath("shape", "SHAPE_SFM_49k_v20180804.jld2")
     if isfile(path_jld) && ENABLE_JLD
-        shape = AsteroidThermoPhysicalModels.load_shape_jld(path_jld)
+        shape = AsteroidThermoPPhysicalModels.load_shape_jld(path_jld)
     else
-        shape = AsteroidThermoPhysicalModels.load_shape_obj(path_obj; scale=1000, find_visible_facets=true)
-        AsteroidThermoPhysicalModels.save_shape_jld(path_jld, shape)
+        shape = AsteroidThermoPPhysicalModels.load_shape_obj(path_obj; scale=1000, find_visible_facets=true)
+        AsteroidThermoPPhysicalModels.save_shape_jld(path_jld, shape)
     end
 
     ##= Thermal properties =##
@@ -88,10 +88,10 @@
     ρ  = 1270.0
     Cₚ = 600.0
     
-    l = AsteroidThermoPhysicalModels.thermal_skin_depth(P, k, ρ, Cₚ)
-    Γ = AsteroidThermoPhysicalModels.thermal_inertia(k, ρ, Cₚ)
+    l = AsteroidThermoPPhysicalModels.thermal_skin_depth(P, k, ρ, Cₚ)
+    Γ = AsteroidThermoPPhysicalModels.thermal_inertia(k, ρ, Cₚ)
 
-    thermo_params = AsteroidThermoPhysicalModels.thermoparams(
+    thermo_params = AsteroidThermoPPhysicalModels.thermoparams(
         P       = P,
         l       = l,
         Γ       = Γ,
@@ -103,24 +103,24 @@
     )
 
     ##= Setting of TPM =##
-    stpm = AsteroidThermoPhysicalModels.SingleTPM(shape, thermo_params;
+    stpm = AsteroidThermoPPhysicalModels.SingleTPM(shape, thermo_params;
         SELF_SHADOWING = true,
         SELF_HEATING   = true,
-        SOLVER         = AsteroidThermoPhysicalModels.ForwardEulerSolver(thermo_params),
-        BC_UPPER       = AsteroidThermoPhysicalModels.RadiationBoundaryCondition(),
-        BC_LOWER       = AsteroidThermoPhysicalModels.InsulationBoundaryCondition(),
+        SOLVER         = AsteroidThermoPPhysicalModels.ForwardEulerSolver(thermo_params),
+        BC_UPPER       = AsteroidThermoPPhysicalModels.RadiationBoundaryCondition(),
+        BC_LOWER       = AsteroidThermoPPhysicalModels.InsulationBoundaryCondition(),
     )
-    AsteroidThermoPhysicalModels.init_temperature!(stpm, 200)
+    AsteroidThermoPPhysicalModels.init_temperature!(stpm, 200)
 
     ##= Run TPM =##
     time_begin = ephem.time[end] - P  # Time to start storing temperature 
     time_end   = ephem.time[end]      # Time to end storing temperature
     face_ID = [1, 2, 3, 4, 10]        # Face indices at which you want to save underground temperature
 
-    result = AsteroidThermoPhysicalModels.run_TPM!(stpm, ephem, time_begin, time_end, face_ID)
+    result = AsteroidThermoPPhysicalModels.run_TPM!(stpm, ephem, time_begin, time_end, face_ID)
 
     ##= Save TPM result =##'
     savedir = "non-uniform_thermoparams"
     mkpath(savedir)
-    AsteroidThermoPhysicalModels.export_TPM_results(savedir, result, stpm, ephem)
+    AsteroidThermoPPhysicalModels.export_TPM_results(savedir, result, stpm, ephem)
 end

@@ -1,4 +1,4 @@
-module AsteroidThermoPhysicalModels
+module AsteroidThermoPPhysicalModels
 
 using LinearAlgebra
 using StaticArrays
@@ -35,4 +35,4 @@ export thermal_skin_depth, thermal_inertia, init_temperature!, run_TPM!
 
 include("roughness.jl")
 
-end # module AsteroidThermoPhysicalModels
+end # module AsteroidThermoPPhysicalModels

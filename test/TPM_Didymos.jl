@@ -80,16 +80,16 @@
     path_shape2_jld = joinpath("shape", "g_08438mm_lgt_obj_dimo_0000n00000_v002.jld2")
 
     if isfile(path_shape1_jld) && ENABLE_JLD
-        shape1 = AsteroidThermoPhysicalModels.load_shape_jld(path_shape1_jld)
+        shape1 = AsteroidThermoPPhysicalModels.load_shape_jld(path_shape1_jld)
     else
-        shape1 = AsteroidThermoPhysicalModels.load_shape_obj(path_shape1_obj; scale=1000, find_visible_facets=true)
-        AsteroidThermoPhysicalModels.save_shape_jld(path_shape1_jld, shape1)
+        shape1 = AsteroidThermoPPhysicalModels.load_shape_obj(path_shape1_obj; scale=1000, find_visible_facets=true)
+        AsteroidThermoPPhysicalModels.save_shape_jld(path_shape1_jld, shape1)
     end
     if isfile(path_shape2_jld) && ENABLE_JLD
-        shape2 = AsteroidThermoPhysicalModels.load_shape_jld(path_shape2_jld)
+        shape2 = AsteroidThermoPPhysicalModels.load_shape_jld(path_shape2_jld)
     else
-        shape2 = AsteroidThermoPhysicalModels.load_shape_obj(path_shape2_obj; scale=1000, find_visible_facets=true)
-        AsteroidThermoPhysicalModels.save_shape_jld(path_shape2_jld, shape2)
+        shape2 = AsteroidThermoPPhysicalModels.load_shape_obj(path_shape2_obj; scale=1000, find_visible_facets=true)
+        AsteroidThermoPPhysicalModels.save_shape_jld(path_shape2_jld, shape2)
     end
     
     ##= Thermal properties =##
@@ -97,11 +97,11 @@
     ρ  = 2170.
     Cₚ = 600.
 
-    l₁ = AsteroidThermoPhysicalModels.thermal_skin_depth(P₁, k, ρ, Cₚ)  # Thermal skin depth for Didymos
-    l₂ = AsteroidThermoPhysicalModels.thermal_skin_depth(P₂, k, ρ, Cₚ)  # Thermal skin depth for Dimorphos
-    Γ = AsteroidThermoPhysicalModels.thermal_inertia(k, ρ, Cₚ)
+    l₁ = AsteroidThermoPPhysicalModels.thermal_skin_depth(P₁, k, ρ, Cₚ)  # Thermal skin depth for Didymos
+    l₂ = AsteroidThermoPPhysicalModels.thermal_skin_depth(P₂, k, ρ, Cₚ)  # Thermal skin depth for Dimorphos
+    Γ = AsteroidThermoPPhysicalModels.thermal_inertia(k, ρ, Cₚ)
 
-    thermo_params1 = AsteroidThermoPhysicalModels.thermoparams(  # [Michel+2016; Naidu+2020]
+    thermo_params1 = AsteroidThermoPPhysicalModels.thermoparams(  # [Michel+2016; Naidu+2020]
         P       = P₁,
         l       = l₁,
         Γ       = Γ,
@@ -112,7 +112,7 @@
         Nz      = 41,
     )
 
-    thermo_params2 = AsteroidThermoPhysicalModels.thermoparams(  # [Michel+2016; Naidu+2020]
+    thermo_params2 = AsteroidThermoPPhysicalModels.thermoparams(  # [Michel+2016; Naidu+2020]
         P       = P₂,
         l       = l₂,
         Γ       = Γ,
@@ -129,24 +129,24 @@
     println(thermo_params2)
 
     ##= Setting of TPM =##
-    stpm1 = AsteroidThermoPhysicalModels.SingleTPM(shape1, thermo_params1;
+    stpm1 = AsteroidThermoPPhysicalModels.SingleTPM(shape1, thermo_params1;
         SELF_SHADOWING = true,
         SELF_HEATING   = true,
-        SOLVER         = AsteroidThermoPhysicalModels.ForwardEulerSolver(thermo_params1),
-        BC_UPPER       = AsteroidThermoPhysicalModels.RadiationBoundaryCondition(),
-        BC_LOWER       = AsteroidThermoPhysicalModels.InsulationBoundaryCondition(),
+        SOLVER         = AsteroidThermoPPhysicalModels.ForwardEulerSolver(thermo_params1),
+        BC_UPPER       = AsteroidThermoPPhysicalModels.RadiationBoundaryCondition(),
+        BC_LOWER       = AsteroidThermoPPhysicalModels.InsulationBoundaryCondition(),
     )
 
-    stpm2 = AsteroidThermoPhysicalModels.SingleTPM(shape2, thermo_params2;
+    stpm2 = AsteroidThermoPPhysicalModels.SingleTPM(shape2, thermo_params2;
         SELF_SHADOWING = true,
         SELF_HEATING   = true,
-        SOLVER         = AsteroidThermoPhysicalModels.ForwardEulerSolver(thermo_params2),
-        BC_UPPER       = AsteroidThermoPhysicalModels.RadiationBoundaryCondition(),
-        BC_LOWER       = AsteroidThermoPhysicalModels.InsulationBoundaryCondition(),
+        SOLVER         = AsteroidThermoPPhysicalModels.ForwardEulerSolver(thermo_params2),
+        BC_UPPER       = AsteroidThermoPPhysicalModels.RadiationBoundaryCondition(),
+        BC_LOWER       = AsteroidThermoPPhysicalModels.InsulationBoundaryCondition(),
     )
 
-    btpm  = AsteroidThermoPhysicalModels.BinaryTPM(stpm1, stpm2; MUTUAL_SHADOWING=true, MUTUAL_HEATING=true)
-    AsteroidThermoPhysicalModels.init_temperature!(btpm, 200.)
+    btpm  = AsteroidThermoPPhysicalModels.BinaryTPM(stpm1, stpm2; MUTUAL_SHADOWING=true, MUTUAL_HEATING=true)
+    AsteroidThermoPPhysicalModels.init_temperature!(btpm, 200.)
     
     ##= Run TPM =##
     time_begin = ephem.time[end] - P₂  # Time to start storing temperature 
@@ -154,10 +154,10 @@
     face_ID_pri = [1, 2, 3, 4, 10]     # Face indices at which you want to save underground temperature for the primary
     face_ID_sec = [1, 2, 3, 4, 20]     # Face indices at which you want to save underground temperature for the secondary
 
-    result = AsteroidThermoPhysicalModels.run_TPM!(btpm, ephem, time_begin, time_end, face_ID_pri, face_ID_sec)
+    result = AsteroidThermoPPhysicalModels.run_TPM!(btpm, ephem, time_begin, time_end, face_ID_pri, face_ID_sec)
 
     ##= Save TPM result =##
     savedir = "TPM_Didymos"
     mkpath(savedir)
-    AsteroidThermoPhysicalModels.export_TPM_results(savedir, result, btpm, ephem)
+    AsteroidThermoPPhysicalModels.export_TPM_results(savedir, result, btpm, ephem)
 end

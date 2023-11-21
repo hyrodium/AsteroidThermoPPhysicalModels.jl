@@ -1,4 +1,4 @@
-using AsteroidThermoPhysicalModels
+using AsteroidThermoPPhysicalModels
 using Test
 using Aqua
 using JLD2
@@ -12,7 +12,7 @@ using Rotations
 using DataFrames
 
 ENABLE_JLD = false
-Aqua.test_all(AsteroidThermoPhysicalModels, ambiguities=false)
+Aqua.test_all(AsteroidThermoPPhysicalModels, ambiguities=false)
 
 include("find_visiblefacets.jl")
 include("TPM_Ryugu.jl")

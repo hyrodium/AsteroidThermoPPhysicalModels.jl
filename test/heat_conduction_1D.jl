@@ -9,7 +9,7 @@
 
     ##= Shape model =##
     path_obj = joinpath("shape", "single_face.obj")
-    shape = AsteroidThermoPhysicalModels.load_shape_obj(path_obj)
+    shape = AsteroidThermoPPhysicalModels.load_shape_obj(path_obj)
 
     ##= Seeting of time step =##
     et_begin = 0.0
@@ -27,10 +27,10 @@
     ρ  = 1.0
     Cₚ = 1.0
     
-    l = AsteroidThermoPhysicalModels.thermal_skin_depth(P, k, ρ, Cₚ)
-    Γ = AsteroidThermoPhysicalModels.thermal_inertia(k, ρ, Cₚ)
+    l = AsteroidThermoPPhysicalModels.thermal_skin_depth(P, k, ρ, Cₚ)
+    Γ = AsteroidThermoPPhysicalModels.thermal_inertia(k, ρ, Cₚ)
 
-    thermo_params = AsteroidThermoPhysicalModels.thermoparams(
+    thermo_params = AsteroidThermoPPhysicalModels.thermoparams(
         P       = P,
         l       = l,
         Γ       = Γ,
@@ -46,12 +46,12 @@
     ##= TPMs with different solvers =##
     SELF_SHADOWING = false
     SELF_HEATING   = false
-    BC_UPPER       = AsteroidThermoPhysicalModels.IsothermalBoundaryCondition(0)
-    BC_LOWER       = AsteroidThermoPhysicalModels.IsothermalBoundaryCondition(0)
+    BC_UPPER       = AsteroidThermoPPhysicalModels.IsothermalBoundaryCondition(0)
+    BC_LOWER       = AsteroidThermoPPhysicalModels.IsothermalBoundaryCondition(0)
 
-    stpm_FE = AsteroidThermoPhysicalModels.SingleTPM(shape, thermo_params; SELF_SHADOWING, SELF_HEATING, BC_UPPER, BC_LOWER, SOLVER=AsteroidThermoPhysicalModels.ForwardEulerSolver(thermo_params))
-    stpm_BE = AsteroidThermoPhysicalModels.SingleTPM(shape, thermo_params; SELF_SHADOWING, SELF_HEATING, BC_UPPER, BC_LOWER, SOLVER=AsteroidThermoPhysicalModels.BackwardEulerSolver(thermo_params))
-    stpm_CN = AsteroidThermoPhysicalModels.SingleTPM(shape, thermo_params; SELF_SHADOWING, SELF_HEATING, BC_UPPER, BC_LOWER, SOLVER=AsteroidThermoPhysicalModels.CrankNicolsonSolver(thermo_params))
+    stpm_FE = AsteroidThermoPPhysicalModels.SingleTPM(shape, thermo_params; SELF_SHADOWING, SELF_HEATING, BC_UPPER, BC_LOWER, SOLVER=AsteroidThermoPPhysicalModels.ForwardEulerSolver(thermo_params))
+    stpm_BE = AsteroidThermoPPhysicalModels.SingleTPM(shape, thermo_params; SELF_SHADOWING, SELF_HEATING, BC_UPPER, BC_LOWER, SOLVER=AsteroidThermoPPhysicalModels.BackwardEulerSolver(thermo_params))
+    stpm_CN = AsteroidThermoPPhysicalModels.SingleTPM(shape, thermo_params; SELF_SHADOWING, SELF_HEATING, BC_UPPER, BC_LOWER, SOLVER=AsteroidThermoPPhysicalModels.CrankNicolsonSolver(thermo_params))
 
     ##= Initial temperature =##
     T₀(x) = x < 0.5 ? 2x : 2(1 - x)
@@ -67,9 +67,9 @@
         nₜ == length(et_range) && break  # Stop to update the temperature at the final step
         Δt = ephem.time[nₜ+1] - ephem.time[nₜ]
         
-        AsteroidThermoPhysicalModels.forward_euler!(stpm_FE, Δt)
-        AsteroidThermoPhysicalModels.backward_euler!(stpm_BE, Δt)
-        AsteroidThermoPhysicalModels.crank_nicolson!(stpm_CN, Δt)
+        AsteroidThermoPPhysicalModels.forward_euler!(stpm_FE, Δt)
+        AsteroidThermoPPhysicalModels.backward_euler!(stpm_BE, Δt)
+        AsteroidThermoPPhysicalModels.crank_nicolson!(stpm_CN, Δt)
     end
 
     ##= Save data =##

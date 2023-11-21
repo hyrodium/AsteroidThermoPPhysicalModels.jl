@@ -1,15 +1,15 @@
-using AsteroidThermoPhysicalModels
+using AsteroidThermoPPhysicalModels
 using Documenter
 
-DocMeta.setdocmeta!(AsteroidThermoPhysicalModels, :DocTestSetup, :(using AsteroidThermoPhysicalModels); recursive=true)
+DocMeta.setdocmeta!(AsteroidThermoPPhysicalModels, :DocTestSetup, :(using AsteroidThermoPPhysicalModels); recursive=true)
 
 makedocs(;
-    modules=[AsteroidThermoPhysicalModels],
-    repo="https://github.com/hyrodium/AsteroidThermoPhysicalModels.jl/blob/{commit}{path}#{line}",
-    sitename="AsteroidThermoPhysicalModels.jl",
+    modules=[AsteroidThermoPPhysicalModels],
+    repo="https://github.com/hyrodium/AsteroidThermoPPhysicalModels.jl/blob/{commit}{path}#{line}",
+    sitename="AsteroidThermoPPhysicalModels.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://hyrodium.github.io/AsteroidThermoPhysicalModels.jl",
+        canonical="https://hyrodium.github.io/AsteroidThermoPPhysicalModels.jl",
         assets=["assets/favicon.ico"],
     ),
     pages=[
@@ -18,5 +18,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/hyrodium/AsteroidThermoPhysicalModels.jl",
+    repo="github.com/hyrodium/AsteroidThermoPPhysicalModels.jl",
 )
